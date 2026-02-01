@@ -4,7 +4,9 @@ import {
   faDashboard, 
   faArrowLeft,
   faGears,
-  faBars
+  faBars,
+  faUsers,
+  faFileLines
 } from "@fortawesome/free-solid-svg-icons";
 import profile from "../styles/images/profile.png";
 import { destroySession } from "./services/AuthService";
@@ -58,6 +60,34 @@ export default Sidebar = () => {
             </i>
             <span className="link-name">
               Settings
+            </span>
+          </a>
+        </li>
+        <li className={location.pathname.startsWith("/admin/users") ? "active" : ""}>
+          <a
+            onClick={() => {
+              navigate('/admin/users')
+            }}
+          >
+            <i>
+              <FontAwesomeIcon icon={faUsers}/>
+            </i>
+            <span className="link-name">
+              Users
+            </span>
+          </a>
+        </li>
+        <li className={location.pathname.startsWith("/admin/documents") ? "active" : ""}>
+          <a
+            onClick={() => {
+              navigate('/admin/documents')
+            }}
+          >
+            <i>
+              <FontAwesomeIcon icon={faFileLines}/>
+            </i>
+            <span className="link-name">
+              Documents
             </span>
           </a>
         </li>

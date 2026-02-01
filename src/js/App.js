@@ -10,6 +10,12 @@ import {
 import Login from "./admin/Login";
 import AdminDashboard from "./admin/AdminDashboard";
 import AdminSettings from "./admin/AdminSettings";
+import AdminUsersIndex from "./admin/users/Index";
+import AdminUsersShow from "./admin/users/Show";
+import AdminUsersForm from "./admin/users/Form";
+import AdminDocumentsIndex from "./admin/documents/Index";
+import AdminDocumentsShow from "./admin/documents/Show";
+import AdminDocumentsForm from "./admin/documents/Form";
 
 export default App = () => {
   const AdminIndexRedirect = () => {
@@ -52,6 +58,70 @@ export default App = () => {
           element={
             <RequireAuth>
               <AdminSettings/>
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/admin/users"
+          element={
+            <RequireAuth>
+              <AdminUsersIndex/>
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/admin/users/new"
+          element={
+            <RequireAuth>
+              <AdminUsersForm/>
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/admin/users/:userId"
+          element={
+            <RequireAuth>
+              <AdminUsersShow/>
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/admin/users/:userId/edit"
+          element={
+            <RequireAuth>
+              <AdminUsersForm/>
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/admin/documents"
+          element={
+            <RequireAuth>
+              <AdminDocumentsIndex/>
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/admin/documents/new"
+          element={
+            <RequireAuth>
+              <AdminDocumentsForm/>
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/admin/documents/:documentId"
+          element={
+            <RequireAuth>
+              <AdminDocumentsShow/>
+            </RequireAuth>
+          }
+        />
+        <Route
+          path="/admin/documents/:documentId/edit"
+          element={
+            <RequireAuth>
+              <AdminDocumentsForm/>
             </RequireAuth>
           }
         />
