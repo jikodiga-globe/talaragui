@@ -1,0 +1,48 @@
+name: deploy
+
+on:
+  push:
+    branches: [master]
+
+  workflow_dispatch:
+    
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+  
+    steps:
+      - name : Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.18.0'
+          cache: 'npm'
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v5
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Build
+        run: |
+          cd ${GITHUB_WORKSPACE}
+          echo "API_BASE_URL=${{secrets.API_BASE_URL}}" >> .env
+          echo "TOKEN_BEARER=${{secrets.TOKEN_BEARER}}" >> .env
+          echo "CURRENT_USER=${{secrets.CURRENT_USER}}" >> .env
+          npm install
+          npm run update-version
+          npm run build
+
+      - name: Deploy
+        run: |
+          aws s3 sync ./public s3://${{ secrets.S3_BUCKET_NAME}} \
+          --exclude "index.html" \
+          --delete \
+          --cache-control "public, max-age=31536000, immutable"
+
+          aws s3 cp ./public/index.html s3://${{ secrets.S3_BUCKET_NAME}}/index.html \
+          --cache-control "no-cache, no-store, must-revalidate"

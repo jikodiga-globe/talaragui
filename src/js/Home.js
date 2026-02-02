@@ -241,8 +241,8 @@ export default Home = () => {
     <div className="min-vh-100 d-flex flex-column bg-light">
       <nav className="navbar navbar-expand-lg bg-white border-bottom">
         <div className="container">
-          <span className="navbar-brand fw-semibold">TalaRAG Chat</span>
-          <span className="text-muted small">ChatGPT-style RAG assistant</span>
+          <span className="navbar-brand fw-semibold">Daega Chat</span>
+          <span className="text-muted small">ChatGPT-style RAG assistant for Daega's knowledge base</span>
         </div>
       </nav>
 
