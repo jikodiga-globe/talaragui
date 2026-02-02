@@ -5,20 +5,20 @@ on:
     branches: [master]
 
   workflow_dispatch:
-    
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
-  
+
     steps:
-      - name : Checkout
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '20.18.0'
-          cache: 'npm'
+          node-version: "20.18.0"
+          cache: "npm"
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v5
@@ -46,3 +46,4 @@ jobs:
 
           aws s3 cp ./public/index.html s3://${{ secrets.S3_BUCKET_NAME}}/index.html \
           --cache-control "no-cache, no-store, must-revalidate"
+          --metadata-directive "REPLACE"
